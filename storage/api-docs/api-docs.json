@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "演示服务",
+        "description": "这是演示服务，该文档提供了演示swagger api的功能",
+        "contact": {
+            "name": "mylxsw",
+            "email": "mylxsw@aicode.cc"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "开发环境"
+        }
+    ],
+    "paths": {
+        "/demo": {
+            "get": {
+                "tags": [
+                    "演示"
+                ],
+                "summary": "演示API",
+                "operationId": "App\\Http\\Controllers\\ExampleController::example",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "age"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "姓名",
+                                        "type": "string"
+                                    },
+                                    "age": {
+                                        "description": "年龄",
+                                        "type": "integer"
+                                    },
+                                    "gender": {
+                                        "description": "性别",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "正常操作响应",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ApiResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/DemoResp"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "title": "响应实体",
+                "description": "响应实体，响应结果统一使用该结构",
+                "properties": {
+                    "code": {
+                        "description": "响应代码",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "响应结果提示",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DemoAdditionalProperty": {
+                "title": "额外属性",
+                "description": "额外属性描述",
+                "properties": {
+                    "key": {
+                        "description": "KEY",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "VALUE",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DemoResp": {
+                "title": "demo响应内容",
+                "description": "demo响应内容描述",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "用户名",
+                        "type": "string"
+                    },
+                    "age": {
+                        "description": "年龄",
+                        "type": "integer"
+                    },
+                    "gender": {
+                        "description": "性别",
+                        "type": "string"
+                    },
+                    "properties": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DemoAdditionalProperty"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
